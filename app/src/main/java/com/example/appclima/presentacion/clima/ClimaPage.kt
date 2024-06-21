@@ -19,6 +19,4 @@ fun ClimaPage(
         viewModel.ejecutar(intencion)
     }
 
-
-
 }

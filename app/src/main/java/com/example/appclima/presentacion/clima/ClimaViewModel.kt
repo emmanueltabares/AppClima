@@ -13,16 +13,8 @@ import com.example.appclima.repository.RepositorioMock
 import com.example.appclima.repository.modelos.Ciudad
 import kotlinx.coroutines.launch
 
-data class MainUIState (
-    val ciudad: String = "",
-    val temperatura: Int = 0,
-    val descripcion: String = "",
-    val st: Int = 0,
-    val sinDatos: Boolean = true,
-)
-
 class ClimaViewModel(
-    val repositorio: Repositorio
+    private val repositorio: Repositorio
 ) : ViewModel() {
 
     companion object {
