@@ -10,10 +10,12 @@ import com.example.appclima.presentacion.ciudades.CiudadesIntencion.Buscar
 import com.example.appclima.presentacion.ciudades.CiudadesIntencion.Seleccionar
 import com.example.appclima.repository.Repositorio
 import com.example.appclima.repository.RepositorioMock
+import com.example.appclima.router.Router
 import kotlinx.coroutines.launch
 
 class CiudadesViewModel(
-    private val repositorio: Repositorio
+    private val repositorio: Repositorio,
+    private val router: Router
 ) : ViewModel() {
 
     var uiState by mutableStateOf<CiudadesEstado>(CiudadesEstado.Vacío)
@@ -50,11 +52,12 @@ class CiudadesViewModel(
 
 class CiudadesViewModelFactory(
     private val repositorio: Repositorio,
+    private val router: Router
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CiudadesViewModel::class.java)) {
-            return CiudadesViewModel(repositorio) as T
+            return CiudadesViewModel(repositorio, router) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
