@@ -7,13 +7,14 @@ import com.example.appclima.presentacion.ciudades.CiudadesView
 import com.example.appclima.presentacion.ciudades.CiudadesViewModel
 import com.example.appclima.presentacion.ciudades.CiudadesViewModelFactory
 import com.example.appclima.repository.RepositorioApi
+import com.example.appclima.repository.RepositorioMock
 
 @Composable
 fun CiudadesPage(
     modifier: Modifier = Modifier
 ) {
     val viewModel : CiudadesViewModel = viewModel(
-        factory = CiudadesViewModelFactory(RepositorioApi())
+        factory = CiudadesViewModelFactory(RepositorioMock())
     )
     CiudadesView(
         modifier = modifier,

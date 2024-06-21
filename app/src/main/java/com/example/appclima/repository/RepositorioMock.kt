@@ -7,7 +7,7 @@ class RepositorioMock : Repositorio {
     override suspend fun buscarCiudad(ciudad: String): List<Ciudad> {
 
         val ciudad1 = Ciudad(
-            name = "CiudadMock",
+            name = "Buenos Aires ",
             lat = -20.0,
             lon = -25.4,
             country = "AR",
@@ -15,7 +15,7 @@ class RepositorioMock : Repositorio {
         )
 
         val ciudad2 = Ciudad(
-            name = "CiudadMock",
+            name = "Cordoba",
             lat = -20.0,
             lon = -25.4,
             country = "AR",
@@ -23,7 +23,7 @@ class RepositorioMock : Repositorio {
         )
 
         val ciudad3 = Ciudad(
-            name = "CiudadMock",
+            name = "La Plata",
             lat = -20.0,
             lon = -25.4,
             country = "AR",

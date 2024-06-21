@@ -5,9 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.appclima.presentacion.ciudades.CiudadesIntencion.Buscar
 import com.example.appclima.presentacion.ciudades.CiudadesIntencion.Seleccionar
 import com.example.appclima.repository.Repositorio
+import com.example.appclima.repository.RepositorioMock
+import kotlinx.coroutines.launch
 
 class CiudadesViewModel(
     private val repositorio: Repositorio
@@ -21,12 +24,18 @@ class CiudadesViewModel(
             is Buscar -> buscarCiudad(nombre = intencion.nombre)
             is Seleccionar -> seleccionarCiudad(indice = intencion.indice)
         }
-
     }
 
     private fun buscarCiudad(nombre: String) {
-        val ciudades: List<String> = listOf("Ciudad1", "Ciudad2")
-        uiState = CiudadesEstado.Correcto(ciudades)
+        uiState = CiudadesEstado.Cargando
+        viewModelScope.launch {
+            try {
+                val ciudades = repositorio.buscarCiudad((nombre))
+                uiState = CiudadesEstado.Correcto(ciudades)
+            } catch (exception: Exception) {
+                uiState = CiudadesEstado.Error("Error al buscar ciudad")
+            }
+        }
     }
 
     private fun seleccionarCiudad(indice: String) {

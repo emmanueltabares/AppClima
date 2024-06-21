@@ -50,11 +50,11 @@ fun CiudadesView (
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaDeCiudades(ciudades: List<String>, onSelect: (String) -> Unit ) {
+fun ListaDeCiudades(ciudades: List<Ciudad>, onSelect: (String) -> Unit ) {
     LazyColumn {
         items(items = ciudades) {
             Card(onClick = { onSelect("") }) {
-                Text(text = it)
+                Text(text = it.name)
             }
         }
     }
