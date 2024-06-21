@@ -8,9 +8,7 @@ import com.example.appclima.presentacion.ciudades.CiudadesView
 import com.example.appclima.presentacion.ciudades.CiudadesViewModel
 import com.example.appclima.presentacion.ciudades.CiudadesViewModelFactory
 import com.example.appclima.repository.RepositorioApi
-import com.example.appclima.repository.RepositorioMock
 import com.example.appclima.router.Enrutador
-import com.example.appclima.router.Router
 
 @Composable
 fun CiudadesPage(

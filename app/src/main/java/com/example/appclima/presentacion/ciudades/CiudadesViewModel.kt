@@ -10,7 +10,9 @@ import com.example.appclima.presentacion.ciudades.CiudadesIntencion.Buscar
 import com.example.appclima.presentacion.ciudades.CiudadesIntencion.Seleccionar
 import com.example.appclima.repository.Repositorio
 import com.example.appclima.repository.RepositorioMock
+import com.example.appclima.repository.modelos.Ciudad
 import com.example.appclima.router.Router
+import com.example.appclima.router.Ruta
 import kotlinx.coroutines.launch
 
 class CiudadesViewModel(
@@ -24,7 +26,7 @@ class CiudadesViewModel(
 
         when (intencion) {
             is Buscar -> buscarCiudad(nombre = intencion.nombre)
-            is Seleccionar -> seleccionarCiudad(indice = intencion.indice)
+            is Seleccionar -> seleccionarCiudad(ciudad = intencion.ciudad)
         }
     }
 
@@ -45,8 +47,14 @@ class CiudadesViewModel(
         }
     }
 
-    private fun seleccionarCiudad(indice: String) {
-        uiState = CiudadesEstado.Vacío
+    private fun seleccionarCiudad(ciudad: Ciudad) {
+        val ruta = Ruta.Clima(
+            lat = ciudad.lat,
+            lon = ciudad.lon,
+            nombre = ciudad.name
+        )
+
+        router.navegar(ruta)
     }
 }
 

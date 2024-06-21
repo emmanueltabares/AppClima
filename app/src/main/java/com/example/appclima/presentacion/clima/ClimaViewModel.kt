@@ -17,31 +17,31 @@ import com.example.appclima.router.Router
 import kotlinx.coroutines.launch
 
 class ClimaViewModel(
-    private val repositorio: Repositorio,
-    router : Router
+    val repositorio: Repositorio,
+    val router : Router,
+    val lat : Float,
+    val lon : Float,
+    val nombre: String
 ) : ViewModel() {
 
-    var uiState by mutableStateOf<ClimaEstado>(ClimaEstado.Vacio)
+    var uiState by mutableStateOf<ClimaEstado>(ClimaEstado.Cargando)
 
     fun ejecutar(intencion: ClimaIntencion) {
 
         when(intencion) {
             ClimaIntencion.actualizarClima -> obtenerClima()
         }
-
     }
 
-    private fun obtenerClima() {
-        uiState = ClimaEstado.Cargando
+    fun obtenerClima() {
         viewModelScope.launch {
-            val cordoba = Ciudad(name = "Cordoba", lat = -31.4135, lon = -64.18105, country = "Ar")
             try{
-                val clima = repositorio.obtenerClima(cordoba)
+                val clima = repositorio.obtenerClima(lat = lat, lon = lon)
                 uiState = ClimaEstado.Exitoso(
-                    ciudad = clima.name ,
+                    ciudad = nombre ,
                     temperatura = clima.main.temp,
                     descripcion = clima.weather.first().description,
-                    st = clima.main.feelsLike,
+                    st = clima.main.feels_like,
                 )
             } catch (exception: Exception){
                 uiState = ClimaEstado.Error(exception.localizedMessage ?: "error desconocido")
@@ -52,12 +52,21 @@ class ClimaViewModel(
 
 class ClimaViewModelFactory(
     private val repositorio: Repositorio,
-    private val router: Router
+    private val router: Router,
+    private val lat : Float,
+    private val lon : Float,
+    private val nombre: String
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ClimaViewModel::class.java)) {
-            return ClimaViewModel(repositorio, router) as T
+            return ClimaViewModel(
+                repositorio,
+                router,
+                lat,
+                lon,
+                nombre
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

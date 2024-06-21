@@ -33,7 +33,7 @@ class RepositorioMock : Repositorio {
         return listOf(ciudad1, ciudad2, ciudad3)
     }
 
-    override suspend fun obtenerClima(ciudad: Ciudad): Clima {
+    override suspend fun obtenerClima(lat: Float, lon: Float): Clima {
         TODO("Not yet implemented")
     }
 

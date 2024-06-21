@@ -38,8 +38,25 @@ class RepositorioApi : Repositorio {
         }
     }
 
-    override suspend fun obtenerClima(ciudad: Ciudad): Clima {
-        TODO("Not yet implemented")
+    override suspend fun obtenerClima(lat: Float, lon: Float): Clima {
+        try {
+            val res = client.get("https://api.openweathermap.org/data/2.5/weather"){
+                parameter("lat", lat)
+                parameter("lon", lon)
+                parameter("units", "metrics")
+                parameter("appid", apiKey)
+            }
+
+            if (res.status == HttpStatusCode.OK){
+                val clima = res.body<Clima>()
+                return clima
+            }else{
+                throw Exception()
+            }
+
+        } catch (exception: Exception) {
+            throw  Exception(exception)
+        }
     }
 
     override suspend fun obtenerPronostico(ciudad: String): List<Clima> {

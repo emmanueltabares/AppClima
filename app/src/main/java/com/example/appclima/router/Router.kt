@@ -6,5 +6,5 @@ interface Router {
 
 sealed class Ruta(val id: String) {
     data object Ciudades : Ruta("ciudades")
-    data class Clima(val lat: Double = 0.0, val lon: Double = 0.0): Ruta("clima")
+    data class Clima(val lat: Double = 0.0, val lon: Double = 0.0, val nombre: String): Ruta("clima")
 }

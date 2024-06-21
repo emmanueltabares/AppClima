@@ -20,8 +20,6 @@ class MainActivity : ComponentActivity() {
             AppClimaTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     MainPage(modifier = Modifier.padding((innerPadding)))
-                    //ClimaPage(modifier = Modifier.padding(innerPadding))
-                    //CiudadesPage(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
