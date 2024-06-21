@@ -31,8 +31,13 @@ class CiudadesViewModel(
         viewModelScope.launch {
             try {
                 val ciudades = repositorio.buscarCiudad((nombre))
-                uiState = CiudadesEstado.Correcto(ciudades)
+                if (ciudades.isEmpty()) {
+                    uiState = CiudadesEstado.Vacío
+                } else {
+                    uiState = CiudadesEstado.Correcto(ciudades)
+                }
             } catch (exception: Exception) {
+                println("Error: ${exception.cause}")
                 uiState = CiudadesEstado.Error("Error al buscar ciudad")
             }
         }

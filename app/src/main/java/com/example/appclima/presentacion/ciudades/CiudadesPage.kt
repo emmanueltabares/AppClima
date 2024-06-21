@@ -14,7 +14,7 @@ fun CiudadesPage(
     modifier: Modifier = Modifier
 ) {
     val viewModel : CiudadesViewModel = viewModel(
-        factory = CiudadesViewModelFactory(RepositorioMock())
+        factory = CiudadesViewModelFactory(RepositorioApi())
     )
     CiudadesView(
         modifier = modifier,

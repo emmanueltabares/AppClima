@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 
 class RepositorioApi : Repositorio {
 
-    private val apiKey = "98402b19b1832dc7559df28336f0e3"
+    private val apiKey = "98402b19b1832dc7559df28336f0e3be"
     private val client = HttpClient(){
         install(ContentNegotiation) {
             json(Json {
@@ -24,7 +24,7 @@ class RepositorioApi : Repositorio {
         }
     }
     override suspend fun buscarCiudad(ciudad: String): List<Ciudad> {
-        val res = client.get("htpp://api.openweathermap.org/geo/1.0/direct"){
+        val res = client.get("https://api.openweathermap.org/geo/1.0/direct"){
             parameter("q", ciudad)
             parameter("limit", 5)
             parameter("appid", apiKey)
@@ -34,7 +34,7 @@ class RepositorioApi : Repositorio {
             val ciudades = res.body<List<Ciudad>>()
             return ciudades
         } else {
-            throw Exception()
+            throw Exception("${res.status.description}")
         }
     }
 
